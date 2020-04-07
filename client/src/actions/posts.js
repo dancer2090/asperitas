@@ -152,3 +152,11 @@ export const attemptVote = (id, vote) => async (dispatch, getState) => {
     dispatch(voteError(error));
   }
 };
+
+export const SET_FILTER = 'SET_FILTER';
+
+const setFilterValues = filter => ({ type: SET_FILTER, filter });
+
+export const setFilter = filter => dispatch => {
+  dispatch(setFilterValues(filter));
+};

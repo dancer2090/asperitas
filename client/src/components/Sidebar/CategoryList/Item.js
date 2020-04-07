@@ -7,7 +7,7 @@ const Item = styled(NavLink)`
   font-size: 15px;
   text-decoration: none;
   color: ${props => props.theme.normalText};
-  
+
   ::after {
     left: -1px;
     top: 0;

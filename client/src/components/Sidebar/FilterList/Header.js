@@ -10,6 +10,6 @@ const Header = styled.span`
   color: ${props => props.theme.mutedText};
 `;
 
-const SidebarCategoryListHeader = () => <Header>categories</Header>;
+const SidebarFilterListHeader = () => <Header>filters</Header>;
 
-export default SidebarCategoryListHeader;
+export default SidebarFilterListHeader;

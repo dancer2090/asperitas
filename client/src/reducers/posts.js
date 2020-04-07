@@ -19,10 +19,20 @@ import {
   DELETE_COMMENT_ERROR,
   VOTE_REQUEST,
   VOTE_SUCCESS,
-  VOTE_ERROR
+  VOTE_ERROR,
+  SET_FILTER
 } from '../actions/posts';
+import categories from '../categories';
+const cats = categories.map(cat => {
+  return {
+    label: cat,
+    key: cat,
+    active: false,
+    hidden: false
+  };
+});
 
-const initialState = { isFetching: false, items: [] };
+const initialState = { isFetching: false, items: [], filter: cats };
 
 const updateItems = (post, items) =>
   items.map(i => (i.id === post.id ? post : i));
@@ -85,7 +95,8 @@ export default (state = initialState, action) => {
       };
     case VOTE_ERROR:
       return { ...state, isVoting: false };
-
+    case SET_FILTER:
+      return { ...state, filter: action.filter };
     default:
       return state;
   }
