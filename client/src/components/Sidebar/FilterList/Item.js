@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
+import Checkbox from '../../shared/form/Checkbox';
 
 const Item = styled.div`
   padding: 12px;
@@ -21,6 +22,12 @@ const Item = styled.div`
         pointer-events: none;
       }
     `}
+
+  label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const SidebarFilterListItem = ({ category, onChange, mainCategory }) => {
@@ -30,14 +37,13 @@ const SidebarFilterListItem = ({ category, onChange, mainCategory }) => {
 
   return (
     <Item {...category} isMain={category.key === mainCategory}>
-      <input
-        type='checkbox'
-        id={`filter-checkbox-${category.key}`}
-        checked={category.active}
-        disabled={category.key === mainCategory}
-        onChange={() => setValue(!category.active)}
-      />
       <label htmlFor={`filter-checkbox-${category.key}`}>
+        <Checkbox
+          checked={category.active}
+          id={`filter-checkbox-${category.key}`}
+          disabled={category.key === mainCategory}
+          onChange={() => setValue(!category.active)}
+        />
         {category.label}
       </label>
     </Item>
