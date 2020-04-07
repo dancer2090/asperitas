@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 
 const Item = styled.div`
   padding: 12px;
@@ -12,29 +12,34 @@ const Item = styled.div`
     bottom: 0;
     border-left: 3px solid ${props => props.theme.accent};
   }
+  ${props =>
+    (props.hidden || props.isMain) &&
+    css`
+      pointer-events: none;
+      input,
+      label {
+        pointer-events: none;
+      }
+    `}
 `;
 
-const SidebarFilterListItem = ({ category, onChange }) => {
+const SidebarFilterListItem = ({ category, onChange, mainCategory }) => {
   const setValue = value => {
-    console.log(value);
     onChange(category.key, value);
   };
 
   return (
-    <Item>
-      {!category.hidden && (
-        <Fragment>
-          <input
-            type='checkbox' 
-            id={`filter-checkbox-${category.key}`}
-            checked={category.active}
-            onChange={() => setValue(!category.active)}
-          />
-          <label htmlFor={`filter-checkbox-${category.key}`}>
-            {category.label}
-          </label>
-        </Fragment>
-      )}
+    <Item {...category} isMain={category.key === mainCategory}>
+      <input
+        type='checkbox'
+        id={`filter-checkbox-${category.key}`}
+        checked={category.active}
+        disabled={category.key === mainCategory}
+        onChange={() => setValue(!category.active)}
+      />
+      <label htmlFor={`filter-checkbox-${category.key}`}>
+        {category.label}
+      </label>
     </Item>
   );
 };

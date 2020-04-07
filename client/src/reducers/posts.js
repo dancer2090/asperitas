@@ -20,10 +20,12 @@ import {
   VOTE_REQUEST,
   VOTE_SUCCESS,
   VOTE_ERROR,
-  SET_FILTER
+  SET_FILTER,
+  SET_MAIN_CATEGORY
 } from '../actions/posts';
 import categories from '../categories';
-const cats = categories.map(cat => {
+
+const filterCategories = categories.map(cat => {
   return {
     label: cat,
     key: cat,
@@ -32,7 +34,12 @@ const cats = categories.map(cat => {
   };
 });
 
-const initialState = { isFetching: false, items: [], filter: cats };
+const initialState = {
+  isFetching: false,
+  items: [],
+  filter: filterCategories,
+  mainCategory: 'all'
+};
 
 const updateItems = (post, items) =>
   items.map(i => (i.id === post.id ? post : i));
@@ -97,6 +104,8 @@ export default (state = initialState, action) => {
       return { ...state, isVoting: false };
     case SET_FILTER:
       return { ...state, filter: action.filter };
+    case SET_MAIN_CATEGORY:
+      return { ...state, mainCategory: action.category };
     default:
       return state;
   }

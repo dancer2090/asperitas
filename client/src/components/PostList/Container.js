@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchPosts, fetchProfile } from '../../actions/posts';
+import { fetchPosts, fetchProfile, setMainCategory } from '../../actions/posts';
 import PostList from './Component';
 
 export const mapStateToProps = state => ({
@@ -7,7 +7,7 @@ export const mapStateToProps = state => ({
   isFetching: state.posts.isFetching
 });
 
-const mapDispatchToProps = { fetchPosts, fetchProfile };
+const mapDispatchToProps = { fetchPosts, fetchProfile, setMainCategory };
 
 const PostListContainer = connect(
   mapStateToProps,

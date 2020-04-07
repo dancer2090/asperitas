@@ -160,3 +160,11 @@ const setFilterValues = filter => ({ type: SET_FILTER, filter });
 export const setFilter = filter => dispatch => {
   dispatch(setFilterValues(filter));
 };
+
+export const SET_MAIN_CATEGORY = 'SET_MAIN_CATEGORY';
+
+const setMainCategoryValue = category => ({ type: SET_MAIN_CATEGORY, category });
+
+export const setMainCategory = category => dispatch => {
+  dispatch(setMainCategoryValue(category));
+};

@@ -8,26 +8,25 @@ const FilterList = styled.nav`
   flex-direction: column;
 `;
 
-const mapFilter = (categories, onChange) =>
-  categories.map((category, index) => (
-    <SidebarFilterListItem
-      key={index}
-      category={category}
-      onChange={onChange}
-    />
-  ));
-
-const SidebarCategoryList = ({ filter, setFilter }) => {
+const SidebarCategoryList = ({ filter, setFilter, mainCategory }) => {
   const onChange = (key, value) => {
-    console.log('update redux', key);
-    const newFilter = filter.map(f => (f.key === key ? { ...f, active: value } : f));
+    const newFilter = filter.map(f =>
+      f.key === key ? { ...f, active: value } : f
+    );
     setFilter(newFilter);
   };
 
   return (
     <FilterList>
       <SidebarFilterListHeader />
-      {mapFilter(filter, onChange)}
+      {filter.map((category, index) => (
+        <SidebarFilterListItem
+          key={index}
+          category={category}
+          onChange={onChange}
+          mainCategory={mainCategory}
+        />
+      ))}
     </FilterList>
   );
 };
