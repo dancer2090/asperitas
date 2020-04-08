@@ -15,6 +15,17 @@ const postTypes = [
   }
 ];
 
+const tagsOptions = [
+  {
+    label: 'tag1',
+    value: 'tag1'
+  },
+  {
+    label: 'tag2',
+    value: 'tag2'
+  }
+];
+
 class CreatePostForm extends React.Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     const { token, post, history } = this.props;
@@ -64,7 +75,6 @@ class CreatePostForm extends React.Component {
           component={renderField}
           options={otherCategories}
         />
-
         <Field name='title' label='title' type='text' component={renderField} />
         {this.props.form.values.type === 'link' && (
           <Field name='url' label='url' type='url' component={renderField} />
@@ -77,6 +87,14 @@ class CreatePostForm extends React.Component {
             component={renderField}
           />
         )}
+        <Field
+          name='tags'
+          label='Tags'
+          type='select'
+          multiple
+          options={tagsOptions}
+          component={renderField}
+        />
         <SubmitButton type='submit'>create post</SubmitButton>
       </Form>
     );

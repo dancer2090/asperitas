@@ -42,7 +42,8 @@ const enhance = compose(
     initialValues: {
       category: categories[0],
       type: 'link',
-      otherCategories: []
+      otherCategories: [],
+      tags: []
     },
     validate
   }),
