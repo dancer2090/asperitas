@@ -24,7 +24,13 @@ exports.show = async (req, res) => {
 };
 
 exports.list = async (req, res) => {
-  const posts = await Post.find().sort('-score');
+  const { otherCategories} = req.query;
+  const sqlObj = {};
+  if (otherCategories) {
+    const other = otherCategories.split(',');
+    sqlObj['otherCategories'] = { $in:[...other] }
+  }
+  const posts = await Post.find(sqlObj).sort('-score');
   res.json(posts);
 };
 
@@ -57,7 +63,7 @@ exports.create = async (req, res, next) => {
   }
 
   try {
-    const { title, url, category, type, text, otherCategories } = req.body;
+    const { title, url, category, type, text, otherCategories, tags } = req.body;
     const author = req.user.id;
     const post = await Post.create({
       title,
@@ -65,6 +71,7 @@ exports.create = async (req, res, next) => {
       author,
       category,
       otherCategories,
+      tags,
       type,
       text
     });

@@ -21,7 +21,9 @@ const VariableField = field => {
                 defaultValue={[]}
                 isMulti
                 options={field.options}
-                onChange={field.input.onChange}
+                onChange={values =>
+                  field.input.onChange(values.map(v => v.value))
+                }
               />
             </Fragment>
           ) : (

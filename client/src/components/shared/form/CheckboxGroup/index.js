@@ -13,9 +13,11 @@ const CheckboxGroupWrapper = styled.div`
 `;
 
 function handleClick(e, value, fn, values) {
-  console.log(fn);
   e.preventDefault();
-  const newValue = values.indexOf(value) !== -1 ? values.filter(v => v !== value ) : [...values, value];
+  const newValue =
+    values.indexOf(value) !== -1
+      ? values.filter(v => v !== value)
+      : [...values, value];
   fn(newValue);
 }
 
@@ -23,9 +25,6 @@ const renderOptions = field => {
   const {
     input: { value: values, onChange }
   } = field;
-
-  console.log(values);
-  console.log(onChange);
 
   return field.options.map((option, key) => (
     <CheckboxGroupOption

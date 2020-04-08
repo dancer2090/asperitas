@@ -31,7 +31,10 @@ const mapStateToProps = state => ({
   isFetching: state.posts.isFetching,
   post: state.posts.newPost,
   form: state.form.createPost,
-  otherCategories: state.posts.filter.map(f => ({ name: f.label, value: f.key }))
+  otherCategories: state.posts.filter.map(f => ({
+    name: f.label,
+    value: f.key
+  }))
 });
 
 const mapDispatchToProps = { attemptCreatePost };
