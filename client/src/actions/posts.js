@@ -17,10 +17,16 @@ const fetchPostsRequest = { type: FETCH_POSTS_REQUEST };
 const fetchPostsSuccess = posts => ({ type: FETCH_POSTS_SUCCESS, posts });
 const fetchPostsError = error => ({ type: FETCH_POSTS_ERROR, error });
 
-export const fetchPosts = (category = '') => async dispatch => {
+export const fetchPosts = (category = '') => async (dispatch, getState) => {
+  const { filter } = getState().posts;
   dispatch(fetchPostsRequest);
   try {
-    const posts = await getPosts(category);
+    const params = {};
+    const other = filter.filter(f => f.active && f.key !== category);
+    if (other.length > 0) {
+      params['otherCategories'] = other.map(c => c.key).join(',');
+    }
+    const posts = await getPosts(category, params);
     dispatch(fetchPostsSuccess(posts));
   } catch (error) {
     dispatch(fetchPostsError(error));
@@ -163,7 +169,10 @@ export const setFilter = filter => dispatch => {
 
 export const SET_MAIN_CATEGORY = 'SET_MAIN_CATEGORY';
 
-const setMainCategoryValue = category => ({ type: SET_MAIN_CATEGORY, category });
+const setMainCategoryValue = category => ({
+  type: SET_MAIN_CATEGORY,
+  category
+});
 
 export const setMainCategory = category => dispatch => {
   dispatch(setMainCategoryValue(category));

@@ -4,7 +4,6 @@ import categories from '../../categories';
 import Form from '../shared/form/Form';
 import renderField from '../shared/form/renderField';
 import SubmitButton from '../shared/form/SubmitButton';
-
 const postTypes = [
   {
     label: 'link',
@@ -33,6 +32,9 @@ class CreatePostForm extends React.Component {
     ));
 
   render() {
+
+    const { otherCategories } = this.props;
+
     return (
       <Form
         loading={this.props.isFetching}
@@ -48,12 +50,21 @@ class CreatePostForm extends React.Component {
         />
         <Field
           name='category'
-          label='category'
+          label='Main Category'
           type='select'
           component={renderField}
         >
           {this.mapCategories()}
         </Field>
+        <Field
+          names={otherCategories.map(c => c.name)}
+          name='otherCategories'
+          label='Other Categories'
+          type='checkboxgroup'
+          component={renderField}
+          options={otherCategories}
+        />
+
         <Field name='title' label='title' type='text' component={renderField} />
         {this.props.form.values.type === 'link' && (
           <Field name='url' label='url' type='url' component={renderField} />

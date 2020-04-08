@@ -8,12 +8,13 @@ const FilterList = styled.nav`
   flex-direction: column;
 `;
 
-const SidebarCategoryList = ({ filter, setFilter, mainCategory }) => {
+const SidebarFilterList = ({ filter, mainCategory, setFilter, fetchPosts }) => {
   const onChange = (key, value) => {
     const newFilter = filter.map(f =>
       f.key === key ? { ...f, active: value } : f
     );
     setFilter(newFilter);
+    fetchPosts(mainCategory);
   };
 
   return (
@@ -31,4 +32,4 @@ const SidebarCategoryList = ({ filter, setFilter, mainCategory }) => {
   );
 };
 
-export default SidebarCategoryList;
+export default SidebarFilterList;

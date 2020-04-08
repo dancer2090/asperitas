@@ -5,6 +5,7 @@ import Error from './Error';
 import SelectWrapper from './SelectWrapper';
 import Input from './Input';
 import RadioGroup from './RadioGroup';
+import CheckboxGroup from './CheckboxGroup';
 
 const VariableField = field => {
   switch (field.type) {
@@ -27,6 +28,13 @@ const VariableField = field => {
       return (
         <InputWrapper>
           <RadioGroup field={field} />
+        </InputWrapper>
+      );
+
+    case 'checkboxgroup':
+      return (
+        <InputWrapper>
+          <CheckboxGroup field={field} />
         </InputWrapper>
       );
 

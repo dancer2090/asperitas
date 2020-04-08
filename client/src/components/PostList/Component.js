@@ -25,8 +25,8 @@ class PostList extends React.Component {
   };
 
   componentDidMount() {
-    this.loadPosts();
     this.props.setMainCategory(this.props.category);
+    this.loadPosts();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -34,8 +34,8 @@ class PostList extends React.Component {
       this.props.category !== prevProps.category ||
       this.props.username !== prevProps.username
     ) {
-      this.loadPosts();
       this.props.setMainCategory(this.props.category);
+      this.loadPosts();
     }
   }
 
