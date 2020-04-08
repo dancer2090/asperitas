@@ -19,6 +19,8 @@ const postSchema = new Schema({
   url: { type: String },
   author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   category: { type: String, required: true },
+  otherCategories: [String],
+  tags: [String],
   score: { type: Number, default: 0 },
   votes: [{ user: Schema.Types.ObjectId, vote: Number, _id: false }],
   comments: [commentSchema],

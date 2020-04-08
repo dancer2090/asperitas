@@ -25,6 +25,7 @@ class PostList extends React.Component {
   };
 
   componentDidMount() {
+    this.props.setMainCategory(this.props.category);
     this.loadPosts();
   }
 
@@ -32,8 +33,10 @@ class PostList extends React.Component {
     if (
       this.props.category !== prevProps.category ||
       this.props.username !== prevProps.username
-    )
+    ) {
+      this.props.setMainCategory(this.props.category);
       this.loadPosts();
+    }
   }
 
   mapPosts = () =>

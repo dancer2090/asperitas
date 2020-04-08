@@ -2,7 +2,6 @@ import styled from 'styled-components/macro';
 
 const FormWrapper = styled.div`
   position: relative;
-  overflow: hidden;
   margin: 0 auto;
   border: 1px solid ${props => props.theme.border};
   border-radius: 2px;

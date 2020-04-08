@@ -1,25 +1,44 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import InputWrapper from './InputWrapper';
 import Label from './Label';
 import Error from './Error';
 import SelectWrapper from './SelectWrapper';
 import Input from './Input';
 import RadioGroup from './RadioGroup';
+import CheckboxGroup from './CheckboxGroup';
+import Select from 'react-select';
 
 const VariableField = field => {
   switch (field.type) {
     case 'select':
       return (
         <InputWrapper>
-          <Label>{field.label}</Label>
-          {field.meta.touched && field.meta.error && (
-            <Error>{field.meta.error}</Error>
+          {field.multiple ? (
+            <Fragment>
+              <Label>{field.label}</Label>
+              <Select
+                name='tags'
+                defaultValue={[]}
+                isMulti
+                options={field.options}
+                onChange={values =>
+                  field.input.onChange(values.map(v => v.value))
+                }
+              />
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Label>{field.label}</Label>
+              {field.meta.touched && field.meta.error && (
+                <Error>{field.meta.error}</Error>
+              )}
+              <SelectWrapper>
+                <Input {...field.input} as='select' type='select'>
+                  {field.children}
+                </Input>
+              </SelectWrapper>
+            </Fragment>
           )}
-          <SelectWrapper>
-            <Input {...field.input} as='select' type='select'>
-              {field.children}
-            </Input>
-          </SelectWrapper>
         </InputWrapper>
       );
 
@@ -27,6 +46,13 @@ const VariableField = field => {
       return (
         <InputWrapper>
           <RadioGroup field={field} />
+        </InputWrapper>
+      );
+
+    case 'checkboxgroup':
+      return (
+        <InputWrapper>
+          <CheckboxGroup field={field} />
         </InputWrapper>
       );
 

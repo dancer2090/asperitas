@@ -30,7 +30,11 @@ const validate = fields => {
 const mapStateToProps = state => ({
   isFetching: state.posts.isFetching,
   post: state.posts.newPost,
-  form: state.form.createPost
+  form: state.form.createPost,
+  otherCategories: state.posts.filter.map(f => ({
+    name: f.label,
+    value: f.key
+  }))
 });
 
 const mapDispatchToProps = { attemptCreatePost };
@@ -38,7 +42,12 @@ const mapDispatchToProps = { attemptCreatePost };
 const enhance = compose(
   reduxForm({
     form: 'createPost',
-    initialValues: { category: categories[0], type: 'link' },
+    initialValues: {
+      category: categories[0],
+      type: 'link',
+      otherCategories: [],
+      tags: []
+    },
     validate
   }),
   withAuth,
